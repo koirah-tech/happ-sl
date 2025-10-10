@@ -4,7 +4,7 @@ import React, {useState, useEffect} from "react";
 import {motion, AnimatePresence} from "framer-motion";
 import {useTheme} from "next-themes";
 import Link from "next/link";
-import Logo from "./logo";
+import { usePathname } from "next/navigation";
 
 import {
     RiMenu3Line,
@@ -12,8 +12,11 @@ import {
     RiArrowDownSLine,
 } from "@remixicon/react";
 
+import Logo from "./logo";
 import CTAButton from "@/components/common/ctaButton";
 import ThemeToggle from "@/components/common/themeToggler";
+import { useIsMobile } from "@/hooks/useMobile";
+import { cn } from "@/lib/utils";
 
 interface DropdownItems {
     name: string;
@@ -41,6 +44,12 @@ export const Navigation = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string|null>(null);
     const theme = useTheme();
+    const isMobile = useIsMobile();
+    const pathname = usePathname();
+
+    const isActive = (href?: string) => 
+        !!href && (pathname === href || pathname.startsWith(href + "/"));
+
 
 
     useEffect(() => {
@@ -87,7 +96,7 @@ export const Navigation = () => {
             }}
         >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="flex h-16 items-center justify-between lg:h-20">
+                <div className="flex h-26 items-center justify-between lg:h-30">
 
                     <motion.button
                         className="rounded-lg p-2 transition-colors duration-200 hover:bg-muted lg:hidden"
@@ -101,13 +110,6 @@ export const Navigation = () => {
                         )}
                     </motion.button>
 
-                    <motion.div
-                        className="flex items-center space-x-2"
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                    >
-                        
-                    </motion.div>
 
                     {/* The main navigation - the left side of the navigation */}
                     <nav className="hidden items-center space-x-6 lg:flex">
@@ -122,7 +124,9 @@ export const Navigation = () => {
                             >
                                 <Link
                                     href={item.href ? item.href : ""}
-                                    className="flex items-center space-x-1 font-medium text-foreground transition-colors duration-200 hover:text-accent"
+                                    className={cn("flex items-center space-x-1 font-medium text-foreground transition-colors duration-200 hover:text-accent", isActive(item.href)
+                                        ? "text-accent underline decoration-2 underline-offset-4"
+                                        : "text-foreground hover:text-accent")}
                                 >
                                     <span>{item.name}</span>
                                     {item.hasDropdown && (
@@ -165,7 +169,12 @@ export const Navigation = () => {
                     </nav>
                     
                     {/* The app logo */}
-                    <Logo />
+                    <Logo 
+                        orientation={isMobile ? "horizontal" : "vertical"} 
+                        showText={isMobile ? false : true}
+                        width={isMobile ? 70 : 50}
+                        height={isMobile ? 70 : 50} 
+                    />
 
                     {/* Call to action menu - the right side of the navigation */}
                     <div className="hidden items-center space-x-4 lg:flex">
@@ -181,21 +190,17 @@ export const Navigation = () => {
                         <Link
                             href="/register"
                         >
-                            <CTAButton className="font-bold">
+                            <CTAButton className="font-bold bg-secondary hover:bg-secondary dark:bg-primary">
                                 APPLY NOW
                             </CTAButton>
                         </Link>
                         <ThemeToggle />
                     </div>
 
-                    <Link
-                        href="/signin"
-                        className="font-medium text-foreground transition-colors duration-200
-                            underline decoration-double decoration-2 decoration-accent underline-offset-4  hover:text-accent lg:hidden"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                        Sign In
-                    </Link>
+                    <div className="lg:hidden px-4 py-2 border-t border-muted">
+                        <ThemeToggle />            
+                    </div>
+                    
                 </div>
                 <AnimatePresence>
                     {isMobileMenuOpen && (
@@ -235,14 +240,21 @@ export const Navigation = () => {
                                     <Link
                                         key={item.name}
                                         href={item.href ? item.href : ""}
-                                        className="block px-4 py-3 font-medium text-foreground transition-colors duration-200 hover:bg-muted"
+                                        className={cn("block px-4 py-3 font-medium text-foreground transition-colors duration-200 hover:bg-muted", isActive(item.href) ? "text-accent font-semibold" : "text-foreground hover:text-accent")}
                                         onClick={() => setIsMobileMenuOpen(false)}
                                     >
                                         {item.name}
                                     </Link>
                                 ))}
                                 <div className="space-y-2 px-4 py-2">
-                                    
+                                    <Link
+                                        href="/signin"
+                                        className="block w-full rounded-lg py-2.5 text-center font-medium text-foreground transition-colors duration-200 hover:bg-muted"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        Sign In
+                                    </Link>
+
                                     <Link
                                         href="/register"
                                         className="block w-full rounded-lg bg-gradient-to-r from-primary to-secondary py-2.5 text-center font-bold text-white transition-all duration-200 hover:shadow-lg"
@@ -251,9 +263,7 @@ export const Navigation = () => {
                                         APPLY NOW
                                     </Link>
                                 </div>
-                                <div className="px-4 py-2 border-t border-muted">
-                                    <ThemeToggle />
-                                </div>
+                                
                             </div>
 
                         </motion.div>
