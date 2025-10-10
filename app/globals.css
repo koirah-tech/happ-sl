@@ -71,7 +71,7 @@
   --secondary-foreground: oklch(0.9851 0 0);
   --muted: oklch(0.2686 0 0);
   --muted-foreground: oklch(0.7090 0 0);
-  --accent: oklch(0.7646 0.1665 146.3076);
+  --accent: oklch(76.464% 0.16646 146.333);
   --accent-foreground: oklch(0.9851 0 0);
   --destructive: oklch(0.7036 0.1881 22.1462);
   --destructive-foreground: oklch(0.9851 0 0);
@@ -162,6 +162,144 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+}
+
+@layer utilities {
+  /* Typography utilities */
+  .h1-bold {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 42px;
+    letter-spacing: -0.025em;
+  }
+
+  .h2-bold {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 31.2px;
+  }
+
+  .h2-semibold {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 31.2px;
+  }
+
+  .h3-bold {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+  }
+
+  .h3-semibold {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24.8px;
+  }
+
+  .base-medium {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 25.2px;
+  }
+
+  .base-semibold {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 25.2px;
+  }
+
+  .base-bold {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 140%;
+  }
+
+  .paragraph-regular {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.4px;
+  }
+
+  .paragraph-medium {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22.4px;
+  }
+
+  .paragraph-semibold {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20.8px;
+  }
+
+  .body-regular {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19.6px;
+  }
+
+  .body-medium {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18.2px;
+  }
+
+  .body-semibold {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18.2px;
+  }
+
+  .body-bold {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18.2px;
+  }
+
+  .small-regular {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15.6px;
+  }
+
+  .small-medium {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15.6px;
+  }
+
+  .small-semibold {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 15.6px;
+  }
+
+  .subtle-medium {
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 13px !important;
+  }
+
+  .subtle-regular {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 13px;
+  }
+
+  /*  Layout utilities*/
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
 }
 
 @layer base {
