@@ -23,7 +23,7 @@ export default function DotCard({icon: Icon, title, description, bgStyling}: Dot
         </div>
         <div className="relative z-20 mx-auto py-8">
           <div className="p-6">
-            <div className={`${bgStyling} w-fit rounded-full p-2 mb-5`}>
+            <div className={`${bgStyling} w-fit p-2 mb-5`}>
               <Icon width={65} height={65} />
             </div>
             <h3 className="mb-1 text-lg font-bold text-gray-900 dark:text-gray-100">
