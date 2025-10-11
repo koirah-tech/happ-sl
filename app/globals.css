@@ -300,6 +300,23 @@
     justify-content: space-between;
   }
 
+  .step-badge::after {
+    content: attr(data-step);
+    position: absolute;
+    top: 3rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(5rem, 6vw, 16rem); 
+    font-weight: 800;
+    line-height: 1;
+    opacity: 0.09;
+    color: var(--foreground); 
+    z-index: 20; 
+    pointer-events: none;
+  }
+
 }
 
 @layer base {
