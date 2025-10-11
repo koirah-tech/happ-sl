@@ -58,6 +58,7 @@ const HowItWorks = () => {
                         title={svc.service}
                         description={svc.description}
                         bgStyling={""}
+                        step={idx + 1}
                     />
                 ))}
             </div>
