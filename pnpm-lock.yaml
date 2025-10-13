@@ -118,8 +118,8 @@ importers:
         specifier: ^30.2.0
         version: 30.2.0
       shadcn:
-        specifier: ^3.3.1
-        version: 3.3.1(@types/node@20.19.18)(typescript@5.9.2)
+        specifier: ^3.4.0
+        version: 3.4.0(@types/node@20.19.18)(typescript@5.9.2)
       svg-sprite:
         specifier: ^2.0.4
         version: 2.0.4
@@ -4125,8 +4125,8 @@ packages:
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
 
-  shadcn@3.3.1:
-    resolution: {integrity: sha512-sgai5gahy/TiyTiqJEwIFpAuPhmkpt7sGVdRfcmNH53Yc3yI57+zFVmIaqbTST0jP/7tSqZuI0aSllXL2HIw5w==}
+  shadcn@3.4.0:
+    resolution: {integrity: sha512-2fZC7+seml8/Eq77TKRJEotJY+llQsuFK4j8cHWk1oe4Qhit/ekai4w+cyaudwKNc+eTFqldR7rLxtTGCxJZ7Q==}
     hasBin: true
 
   sharp@0.34.4:
@@ -9160,7 +9160,7 @@ snapshots:
 
   setprototypeof@1.2.0: {}
 
-  shadcn@3.3.1(@types/node@20.19.18)(typescript@5.9.2):
+  shadcn@3.4.0(@types/node@20.19.18)(typescript@5.9.2):
     dependencies:
       '@antfu/ni': 25.0.0
       '@babel/core': 7.28.4

@@ -109,13 +109,13 @@ const LoginForm = () => {
 
     // @ts-ignore
     return (
-        <div className="grid items-center justify-center py-12">
-            <div className="mx-auto grid lg:w-[350px] gap-6 px-2">
+        <div className="grid items-center justify-center py-12 ">
+            <div className="mx-auto grid lg:w-[350px] gap-6 px-2 ">
                 {/* header */}
               <div className="grid gap-2 text-center">
-                <h1 className="h2-bold lg:h1-bold">Welcome back 👋</h1>
+                <h1 className="h2-bold lg:h1-bold">Official Portal Login 🔐</h1>
                 <p className="lg:w-sm body-regular">
-                    Sign in to apply for temporal license, track housemanship placement and Pin-code issuing. Manage and audit applicant process.
+                    Welcome to the Ministry of Health & Sanitation's Digital Workforce Management System. Please log in to access your designated portal.
                 </p>
               </div>
 
@@ -223,7 +223,7 @@ const LoginForm = () => {
                   <Button
                       type="submit"
                       disabled={isPending}
-                      className="w-full cursor-pointer h-9 lg:h-10 gradient-radial-subtle font-bold hover:gradient-linear-alt"
+                      className="w-full cursor-pointer h-9 lg:h-10 font-bold hover:gradient-linear-alt"
                   >
                       {isPending ? "Signing in..." : "Sign in" }
                   </Button>
@@ -235,8 +235,8 @@ const LoginForm = () => {
                 {/** ─── SIGNUP LINK ───────────────────────────────────────── */}
                 <div className="mt-4 text-center text-sm">
                     Don&apos;t have an account?{" "}
-                    <Link href="mailto:koigorfogbawa@gmail.com" className="underline">
-                        Go to Register
+                    <Link href="/register" className="underline">
+                        Register Here
                     </Link>
                 </div>
             </div>
