@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
 
 import Logo from "@/components/common/logo";
@@ -8,6 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import {
+  mockSubmitManualReview,
+  mockVerifyApplicant,
+  type VerificationPayload,
+} from "@/lib/mock/registration";
 
 const UNIVERSITIES = [
   "College of Medicine and Allied Health Sciences (COMAHS)",
@@ -46,7 +52,10 @@ const INITIAL_VALUES: FormValues = {
   institution: "",
 };
 
+const VERIFIED_APPLICANT_STORAGE_KEY = "happ-sl::verified-applicant";
+
 export default function VerifyApplicantForm() {
+  const router = useRouter();
   const graduationYears = useMemo(buildGraduationYears, []);
   const [formValues, setFormValues] = useState<FormValues>(INITIAL_VALUES);
   const [hasVerificationError, setHasVerificationError] = useState(false);
@@ -69,8 +78,20 @@ export default function VerifyApplicantForm() {
     setIsVerifying(true);
     setHasVerificationError(false);
 
-    // TODO: Replace with Supabase verification logic when backend is ready.
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    const payload: VerificationPayload = { ...formValues };
+    const result = await mockVerifyApplicant(payload);
+
+    if (result.status === "matched") {
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem(
+          VERIFIED_APPLICANT_STORAGE_KEY,
+          JSON.stringify(result.graduate)
+        );
+      }
+      setIsVerifying(false);
+      router.push("/register/create-account");
+      return;
+    }
 
     setHasVerificationError(true);
     setIsVerifying(false);
@@ -81,12 +102,10 @@ export default function VerifyApplicantForm() {
 
   return (
     <>
-      <section className="relative mx-auto w-full max-w-xl rounded-2xl border border-border bg-card/95 shadow-xl shadow-primary/10 backdrop-blur">
+      <section className="relative mx-auto w-full max-w-md rounded-2xl border border-border bg-card/95 shadow-xl shadow-primary/10 backdrop-blur">
         <div className="space-y-6 px-6 py-8 md:px-10 md:py-10">
           <div className="text-center">
-            <div className="mb-4 flex justify-center">
-              <Logo size="md" orientation="vertical" />
-            </div>
+          
             <h1 className="h2-bold text-secondary dark:text-stone-100">
               Verify Your Graduate Status
             </h1>
@@ -274,8 +293,7 @@ function ManualReviewModal({ values, onClose }: ManualReviewModalProps) {
 
   const handleConfirm = async () => {
     setStatus("submitting");
-    // TODO: Persist manual review request to Supabase.
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    await mockSubmitManualReview(values);
     setStatus("submitted");
   };
 
