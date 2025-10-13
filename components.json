@@ -20,10 +20,13 @@
   },
   "registries": {
     "@aceternity": "https://ui.aceternity.com/registry/{name}.json",
-    "@originui": "https://ui.originui.com/registry/{name}.json",
+    "@originui": "https://coss.com/origin/registry/{name}.json",
     "@cult": "https://cult-ui.com/registry/{name}.json",
     "@kibo": "https://www.kibo-ui.com/registry/{name}.json",
     "@reui": "https://reui.io/registry/{name}.json",
-    "@magicui": "https://magicui.design/r/{name}.json"
+    "@magicui": "https://magicui.design/r/{name}.json",
+    "@kokonutui": "https://kokonutui.com/r/{name}.json",
+    "@smoothui": "https://smoothui.dev/r/{name}.json",
+    "@cult-ui": "https://cult-ui.com/r/{name}.json"
   }
 }
