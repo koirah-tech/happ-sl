@@ -88,7 +88,7 @@ export const Navigation = () => {
     // @ts-ignore
     return (
         <motion.header
-            className="sticky top-0 z-50 bg-background/95 backdrop-blur-lg dark:bg-muted"
+            className=" z-50 bg-background/95 backdrop-blur-lg dark:bg-muted"
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             style={{
                 backdropFilter: isScrolled ? 'blur(20px)' : 'none',
