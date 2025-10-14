@@ -102,14 +102,14 @@ export default function VerifyApplicantForm() {
 
   return (
     <>
-      <section className="relative mx-auto w-full max-w-md rounded-2xl border border-border bg-card/95 shadow-xl shadow-primary/10 backdrop-blur">
+      <section className="relative mx-auto w-full max-w-md ">
         <div className="space-y-6 px-6 py-8 md:px-10 md:py-10">
           <div className="text-center">
           
-            <h1 className="h2-bold text-secondary dark:text-stone-100">
+            <h1 className="h2-bold ">
               Verify Your Graduate Status
             </h1>
-            <p className="paragraph-regular mt-2 text-muted-foreground">
+            <p className="paragraph-regular mt-2 ">
               Please confirm your details as they appear on your official university records to begin your application.
             </p>
           </div>
@@ -125,6 +125,7 @@ export default function VerifyApplicantForm() {
                 placeholder="Aminata"
                 value={formValues.firstName}
                 onChange={handleInputChange}
+                className="h-9 lg:h-10 border-secondary dark:border-primary shadow-lg dark:border-2"
               />
             </div>
 
@@ -140,6 +141,7 @@ export default function VerifyApplicantForm() {
                 placeholder="Leave blank if not applicable"
                 value={formValues.middleName}
                 onChange={handleInputChange}
+                className="h-9 lg:h-10 border-secondary dark:border-primary shadow-lg dark:border-2"
               />
             </div>
 
@@ -153,6 +155,7 @@ export default function VerifyApplicantForm() {
                 placeholder="Kamara"
                 value={formValues.lastName}
                 onChange={handleInputChange}
+                className="h-9 lg:h-10 border-secondary dark:border-primary shadow-lg dark:border-2"
               />
             </div>
 
@@ -166,6 +169,7 @@ export default function VerifyApplicantForm() {
                 placeholder="e.g. COMAHS-2024-1032"
                 value={formValues.studentId}
                 onChange={handleInputChange}
+                className="h-9 lg:h-10 border-secondary dark:border-primary shadow-lg dark:border-2"
               />
             </div>
 
@@ -309,10 +313,10 @@ function ManualReviewModal({ values, onClose }: ManualReviewModalProps) {
           className={status !== "idle" ? "pointer-events-none opacity-20" : ""}
         >
           <div className="mb-4">
-            <h2 className="h3-bold text-secondary dark:text-stone-100">
+            <h2 className="h3-bold dark:text-stone-100">
               Manual Eligibility Review
             </h2>
-            <p className="paragraph-regular mt-2 text-muted-foreground">
+            <p className="paragraph-regular mt-2 ">
               Please confirm the details below are correct. This request will be sent directly to your university&apos;s administration for verification. You will be notified via email once the review is complete (this may take several business days).
             </p>
           </div>
