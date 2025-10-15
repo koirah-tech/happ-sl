@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { RiCloseLargeLine } from "@remixicon/react";
+import {Html5QrcodeScanner, Html5QrcodeScannerState} from "html5-qrcode";
+import { Html5QrcodeError } from "html5-qrcode/esm/core";
 
 import { Button } from "@/components/ui/button";
 
@@ -12,79 +14,67 @@ type Props = {
   onError: (error: "no-camera" | "permission-denied") => void;
 };
 
+// A unique ID for the scanner element
+const QR_CODE_SCANNER_ELEMENT_ID = "qr-code-reader";
+
 export default function QRCodeScannerModal({
   open,
   onClose,
   onScan,
   onError,
 }: Props) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [status, setStatus] = useState<
-    "idle" | "requesting" | "streaming" | "scanning"
-  >("idle");
+  
+  const [status, setStatus] = useState<"idle" | "scanning">("idle");
 
   useEffect(() => {
-    let active = true;
-    let stream: MediaStream | null = null;
+    if (!open) return;
 
-    async function initialiseCamera() {
-      if (!open) return;
+    setStatus("scanning")
 
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        onError("no-camera");
-        onClose();
-        return;
-      }
+    const html5QrcodeScanner = new Html5QrcodeScanner(
+      QR_CODE_SCANNER_ELEMENT_ID,
+      {
+        fps: 10,
+        qrbox: (viewfinderWidth, viewfinderHeight) => {
+          const minEdge = Math.min(viewfinderWidth, viewfinderHeight);
+          // Make the scanning box responsive and square
+          const qrboxSize = Math.floor(minEdge * 0.9);
+          return {
+            width: qrboxSize,
+            height: qrboxSize,
+          };
+        },
+        // Important for mobile devices to prefer the rear camera
+        // facingMode: "environment",
+      },
+      /* verbose= */ false
+    );
 
-      try {
-        setStatus("requesting");
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" },
-        });
+    const onScanSuccess = (decodedText: string, decodedResult: any) => {
+      // Stop the scanner and call the parent onScan callback
+      html5QrcodeScanner.clear();
+      onScan(decodedText);
+    };
 
-        if (!active) return;
-        setStatus("streaming");
+    const onScanFailure = (errorMessage: string) => {
+      // This is called frequently, so we can ignore most errors.
+      // You can add more specific error handling here if needed.
+      // For example, you could check for permission errors.
+    };
 
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          await videoRef.current.play();
-        }
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 
-        setStatus("scanning");
-
-        // Simulate scan success after a short delay.
-        const timer = setTimeout(() => {
-          if (!active) return;
-          onScan("MOHS-DOC-98765");
-        }, 2200);
-
-        return () => clearTimeout(timer);
-      } catch (error) {
-        if (error instanceof DOMException) {
-          if (error.name === "NotFoundError" || error.name === "OverconstrainedError") {
-            onError("no-camera");
-          } else if (error.name === "NotAllowedError" || error.name === "SecurityError") {
-            onError("permission-denied");
-          } else {
-            onError("permission-denied");
-          }
-        } else {
-          onError("permission-denied");
-        }
-        onClose();
-      }
-    }
-
-    initialiseCamera();
-
+    // Cleanup function to stop the scanner when the component unmounts or modal closes
     return () => {
-      active = false;
-      if (stream) {
-        stream.getTracks().forEach((track) => track.stop());
+      // The library can sometimes throw an error if it's already been cleared.
+      if (html5QrcodeScanner.getState()) {
+        html5QrcodeScanner.clear().catch((error) => {
+          console.error("Failed to clear html5QrcodeScanner.", error);
+        });
       }
       setStatus("idle");
     };
-  }, [open, onClose, onError, onScan]);
+  }, [open, onScan, onError]);
 
   useEffect(() => {
     if (!open) return;
@@ -97,13 +87,14 @@ export default function QRCodeScannerModal({
 
   if (!open) return null;
 
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-border bg-background shadow-2xl">
+      <div className="relative w-full h-[70%] max-w-lg overflow-hidden rounded-3xl border border-border bg-background shadow-2xl">
         <header className="flex items-center justify-between border-b border-border/70 px-6 py-4">
           <h2 className="text-lg font-semibold text-secondary">Scan QR Code</h2>
           <Button
@@ -117,29 +108,14 @@ export default function QRCodeScannerModal({
           </Button>
         </header>
 
-        <div className="relative aspect-video bg-black">
-          <video
-            ref={videoRef}
-            className="h-full w-full object-cover"
-            muted
-            playsInline
-          />
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="h-40 w-40 rounded-3xl border-4 border-secondary/90 shadow-[0_0_40px_rgba(117,139,97,0.35)] md:h-56 md:w-56" />
-          </div>
-          {status === "requesting" && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/70 text-white">
-              <span className="flex items-center gap-2 text-sm font-medium">
-                <span className="inline-flex h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                Initialising camera...
-              </span>
-            </div>
-          )}
+        {/* The library will mount the scanner inside this div */}
+        <div className="relative aspect-video bg-gray-200 text-gray-600 font-bold">
+          <div id={QR_CODE_SCANNER_ELEMENT_ID} className="h-full w-full" />
         </div>
 
         <footer className="space-y-1 border-t border-border/70 px-6 py-4 text-sm text-muted-foreground">
-          <p>Align the credential QR code inside the square to scan automatically.</p>
-          <p>If the scan does not start, ensure your browser has camera access.</p>
+          <p>Align the credential QR code inside the box to scan it.</p>
+          <p>If scanning doesn't start, ensure you have granted camera permissions.</p>
         </footer>
       </div>
     </div>
