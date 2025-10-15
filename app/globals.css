@@ -440,6 +440,24 @@
 
 }
 
+
+/* #qr-code-reader div {
+  color: white !important; 
+} */
+
+/* #qr-code-reader span,
+#qr-code-reader p {
+  color: white !important;
+  text-shadow: 0 0 5px rgba(0,0,0,0.7); 
+  text-decoration: underline !important;
+} */
+
+/* Also ensure links are visible */
+/* #qr-code-reader a {
+  color: lightblue !important; 
+  text-decoration: underline;
+} */
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
