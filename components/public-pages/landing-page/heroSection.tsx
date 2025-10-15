@@ -38,7 +38,7 @@ const HomeHeroSection = () => {
                             font-montserratAlt dark:text-stone-100 ">
                                 Housemanship & PIN Portal - MoHS&mdash;
                             <span className="text-primary dark:text-accent">
-                                    <Highlighter multiline={true} strokeWidth={6} isView={true} color="#758B61" padding={16}>
+                                    <Highlighter multiline={true} strokeWidth={6} color="#758B61" padding={16}>
                                 <span className="text-white">Streamlining Placement</span>
                                 </Highlighter>{" "}for Sierra Leone's Health Professionals
                             </span>

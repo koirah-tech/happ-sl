@@ -98,13 +98,13 @@ export default function CreateAccountForm() {
   };
 
   return (
-    <section className="relative mx-auto w-full max-w-md rounded-2xl border border-border bg-card/95 shadow-xl shadow-primary/10 backdrop-blur">
+    <section className="relative mx-auto w-full max-w-md">
       <div className="space-y-6 px-6 py-8 md:px-10 md:py-10">
         <div className="text-center">
-          <h1 className="h2-bold text-secondary dark:text-stone-100">
+          <h1 className="h2-bold dark:text-stone-100">
             Create Your Secure Account
           </h1>
-          <p className="paragraph-regular mt-2 text-muted-foreground">
+          <p className="paragraph-regular mt-2 ">
             {applicant
               ? `Welcome, ${applicant.firstName}! Your graduate status has been verified. Let's set up your access to the portal.`
               : "Verifying your status..."}
@@ -123,6 +123,7 @@ export default function CreateAccountForm() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               aria-invalid={email.length > 0 && !isEmailValid}
+              className="h-9 lg:h-10 border-secondary dark:border-primary shadow-lg dark:border-2"
             />
             {email.length > 0 && !isEmailValid && (
               <p className="text-sm text-destructive">
@@ -142,6 +143,7 @@ export default function CreateAccountForm() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               aria-invalid={password.length > 0 && !isPasswordValid}
+              className="h-9 lg:h-10 border-secondary dark:border-primary shadow-lg dark:border-2"
             />
             <ul className="mt-2 grid gap-1 text-sm">
               {passwordStatus.map((item) => (
@@ -173,6 +175,7 @@ export default function CreateAccountForm() {
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event.target.value)}
               aria-invalid={confirmPassword.length > 0 && !doesPasswordMatch}
+              className="h-9 lg:h-10 border-secondary dark:border-primary shadow-lg dark:border-2"
             />
             {confirmPassword.length > 0 && !doesPasswordMatch && (
               <p className="text-sm text-destructive">

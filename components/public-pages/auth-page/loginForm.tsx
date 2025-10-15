@@ -162,7 +162,7 @@ const LoginForm = () => {
                             disabled={isPending}
                             aria-describedby="emailHelp"
                             aria-invalid={fieldErrors.email.length > 0}
-                            className="h-9 lg:h-10 border-secondary dark:border-primary shadow-lg"
+                            className="h-9 lg:h-10 border-secondary dark:border-primary shadow-lg dark:border-2"
                         />
                     </motion.div>
 
@@ -200,7 +200,7 @@ const LoginForm = () => {
                               disabled={isPending}
                               aria-describedby="passwordHelp"
                               aria-invalid={fieldErrors.password.length > 0}
-                              className="h-9 pr-10 pt-3 lg:h-10 border-secondary dark:border-primary shadow-lg"
+                              className="h-9 lg:h-10 border-secondary dark:border-primary shadow-lg dark:border-2"
                           />
                           <button
                               type="button"
