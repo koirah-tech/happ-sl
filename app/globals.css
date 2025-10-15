@@ -440,6 +440,59 @@
 
 }
 
+
+@layer components {
+  .help-article-content {
+    display: grid;
+    gap: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-foreground);
+  }
+
+  .help-article-content h2 {
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+  }
+
+  .help-article-content h3 {
+    margin-top: 1.25rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .help-article-content p {
+    margin: 0;
+  }
+
+  .help-article-content ul,
+  .help-article-content ol {
+    margin-left: 1.25rem;
+    display: grid;
+    gap: 0.5rem;
+    list-style: disc;
+  }
+
+  .help-article-content ol {
+    list-style: decimal;
+  }
+
+  .help-article-content a {
+    color: var(--color-secondary);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .help-article-content img,
+  .help-article-content iframe {
+    border-radius: 0.75rem;
+    max-width: 100%;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
